@@ -20,11 +20,10 @@
 - [🎯 Objectifs](#-objectifs)
 - [🛠 Tech Stack](#-tech-stack)
 - [📂 Dataset](#-dataset)
-- [🚀 Workflow](#-workflow)
+- [🚀 Workflow KNN](#-workflow-knn)
 - [📈 Results](#-results)
 - [👥 Project Team](#-project-team)
 - [📁 Fichiers Générés](#-fichiers-générés)
-- [🔑 License](#-license)
 
 ---
 
@@ -32,9 +31,10 @@
 
 L'objectif de cette compétition est de prédire si des exploitations agricoles sont, d'un point de vue financier, **saines (DIFF = 1)** ou **défaillantes (DIFF = 0)**.
 
-Pour cela, deux approches de Machine Learning ont été développées et comparées :
+Pour cela, trois approches de Machine Learning ont été développées et comparées :
 - **KNN Classique** sur les 6 ratios financiers originaux
 - **KNN + ACP** avec réduction dimensionnelle intelligente
+- **Arbre de décision**
 
 ---
 
@@ -81,7 +81,7 @@ Pour cela, deux approches de Machine Learning ont été développées et compar�
 
 ---
 
-## 🚀 Workflow
+## 🚀 Workflow KNN
 
 ### **Approche 1 : KNN Classique**
 1. 📥 Chargement & exploration des données  
@@ -125,7 +125,7 @@ Pour cela, deux approches de Machine Learning ont été développées et compar�
 | Nom | Rôle | Contributions |
 |-----|------|---------------|
 | **Lounas Chikhi** | 📊 Data Scientist | Implémentation KNN classique, ACP, optimisation, évaluation, soumission finale |
-| **Akil Mouhoub ** | 🔍 Analyste | Exploration des données, visualisations, validation des résultats |
+| **Akil Mouhoub** | 🔍 Analyste | Exploration des données, visualisations, validation des résultats |
 | **Thanina Salhi** | 📝 Rapporteur | Documentation, présentation, analyse comparative |
 | **Sosthene Medrid** | 📊 Data Scientist | Implémentation d'un arbre de décision, présentation |
 
@@ -133,10 +133,10 @@ Pour cela, deux approches de Machine Learning ont été développées et compar�
 
 ## 📁 Fichiers Générés
 
-- 📊 **notebook_analysis.Rmd** - Code R complet avec analyses
-- 📈 **visualizations/** - Graphiques (ROC, ACP, performance)  
-- 📤 **soumission_knn_acp.csv** - Prédictions finales pour Kaggle
-- 📋 **model_summary.txt** - Résumé des performances
+- 📈 **visualisation/** - Graphiques (ROC, ACP, performances)
+- 📤 **data/soumission_knn.csv** - Prédictions finales pour Kaggle
+- 📋 **KNN _ KNN/ACP** - Modèles sauvegardés 
+- 📄 **html_output/** - Rapports HTML générés depuis les notebooks
 
 ---
 
@@ -148,17 +148,10 @@ Ce projet démontre l'efficacité de l'**approche hybride ACP + KNN** pour la cl
 
 ---
 
-## 🔑 License
-
-Projet distribué sous la licence [MIT](https://opensource.org/licenses/MIT).
-
----
 
 <div align="center">
 
 💬 *N'hésitez pas à ouvrir une issue pour toute remarque ou suggestion.*
-
-⭐ *Si ce projet vous a été utile, n'hésitez pas à lui donner une étoile !*
 
 </div>
 
