@@ -6,24 +6,23 @@
 
 **Exploitation de modèles de Machine Learning pour réaliser des prédictions sur des données agricoles.**
 
-**Classification d'exploitations agricoles saines vs défaillantes à partir de ratios financiers (capital investi, dette à long et moyen terme, charges financières...)**
-
 ![Analytics](https://img.icons8.com/color/500/combo-chart--v1.png)
 
 </div>
 
 ---
 
-## 📃 Table of Contents
+## 📃 Table des Matières
 
-- [📌 About the Project](#-about-the-project)
+- [📌 À propos du projet](#-à-propos-du-projet)
 - [🎯 Objectifs](#-objectifs)
-- [🛠 Tech Stack](#-tech-stack)
-- [📂 Dataset](#-dataset)
+- [🛠 Stack Technique](#-stack-technique)
+- [📂 Jeu de données](#-jeu-de-données)
 - [🚀 Workflow KNN](#-workflow-knn)
-- [📈 Results](#-results)
-- [👥 Project Team](#-project-team)
+- [📈 Résultats](#-résultats)
+- [👥 Équipe Projet](#-équipe-projet)
 - [📁 Fichiers Générés](#-fichiers-générés)
+- [🏆 Conclusion](#-conclusion)
 
 ---
 
@@ -51,7 +50,7 @@ Pour cela, trois approches de Machine Learning ont été développées et compar
 
 ---
 
-## 🛠 Tech Stack
+## 🛠 Stack Technique
 
 | Outil / Librairie | Utilisation |
 |-------------------|-------------|
@@ -65,7 +64,7 @@ Pour cela, trois approches de Machine Learning ont été développées et compar
 
 ---
 
-## 📂 Dataset
+## 📂 Jeu de données
 
 **Variables explicatives :**
 - **R2** : Capitaux propres / capital investi
@@ -76,8 +75,8 @@ Pour cela, trois approches de Machine Learning ont été développées et compar
 - **R32** : (EBITDA – charges financières) / produit brut
 
 **Fichiers :**
-- 📄 **farms_train.csv** → données d'apprentissage (features + cible `DIFF`)  
-- 📄 **farms_test.csv** → données de test (features uniquement, soumission attendue)
+- 📄 **data/farms_train.csv** → données d'apprentissage (features + cible `DIFF`)  
+- 📄 **data/farms_test.csv** → données de test (features uniquement, soumission attendue)
 
 ---
 
@@ -89,13 +88,13 @@ Pour cela, trois approches de Machine Learning ont été développées et compar
 3. ⚖️ **Normalisation** (StandardScaler)  
 4. 🔍 Optimisation du **k** (recherche 1-20)  
 5. 🧮 Évaluation **Accuracy** et **AUC / ROC**
+
 <div style="display: flex; justify-content: space-between;">
 
   <img src="Visualisation/1.png" alt="Accuracy KNN Classique" width="45%">
   <img src="Visualisation/2.png" alt="ROC KNN Classique" width="45%">
 
 </div>
-
 
 ### **Approche 2 : KNN + ACP (Approche sophistiquée)**
 1. 📊 **Analyse en Composantes Principales** sur les 6 ratios
@@ -106,20 +105,20 @@ Pour cela, trois approches de Machine Learning ont été développées et compar
 
 <div style="display: flex; justify-content: space-between;">
 
-  <img src="Visualisation/3.png" alt="Accuracy KNN Classique" width="45%">
-  <img src="Visualisation/4.png" alt="ROC KNN Classique" width="45%">
+  <img src="Visualisation/3.png" alt="Accuracy KNN + ACP" width="45%">
+  <img src="Visualisation/4.png" alt="ROC KNN + ACP" width="45%">
 
 </div>
 
 ---
 
-## 📈 Results
+## 📈 Résultats
 
 ### **Performance Comparative :**
 
 | Modèle | Features | Variance | k optimal | Accuracy | AUC |
 |--------|----------|----------|-----------|----------|-----|
-| **KNN Classique** | 6 ratios | 100% | `10` | ` 0.85 ` | `0.945` |
+| **KNN Classique** | 6 ratios | 100% | `10` | `0.85` | `0.945` |
 | **KNN + ACP** | 4 CP | 85.2% | `29` | `0.887` | `0.934` |
 
 ### **Insights Clés :**
@@ -133,7 +132,7 @@ Pour cela, trois approches de Machine Learning ont été développées et compar
 
 ---
 
-## 👥 Project Team
+## 👥 Équipe Projet
 
 | Nom | Rôle | Contributions |
 |-----|------|---------------|
@@ -148,8 +147,8 @@ Pour cela, trois approches de Machine Learning ont été développées et compar
 
 - 📈 **visualisation/** - Graphiques (ROC, ACP, performances)
 - 📤 **data/soumission_knn.csv** - Prédictions finales pour Kaggle
-- 📋 **KNN _ KNN/ACP** - Modèles sauvegardés 
 - 📄 **html_output/** - Rapports HTML générés depuis les notebooks
+- 📋 **KNN _ KNN/ACP** - Modèles sauvegardés 
 
 ---
 
@@ -159,11 +158,10 @@ Ce projet démontre l'efficacité de l'**approche hybride ACP + KNN** pour la cl
 
 ---
 
-
 <div align="center">
 
 💬 *N'hésitez pas à ouvrir une issue pour toute remarque ou suggestion.*
 
 </div>
 
-<p align="right">(<a href="#readme-top">back to top</a>)</p>
+<p align="right">(<a href="#readme-top">retour en haut</a>)</p>
