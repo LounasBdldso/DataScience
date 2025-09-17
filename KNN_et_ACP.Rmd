@@ -26,7 +26,7 @@ library(pROC)
 ### 2. Appliquer L'ACP 
 ```{r}
 
-apprentissage <- read_csv("farms_train.csv")
+apprentissage <- read_csv("Data/farms_train.csv")
 
 # Sélection des features
 X_numeric <- apprentissage %>% select(R2, R7, R8, R17, R22, R32)
@@ -156,7 +156,7 @@ print(confusion_matrix)
 ```{r}
 
 
-test <- read_csv("farms_test.csv")
+test <- read_csv("Data/farms_test.csv")
 
 # Sélectionner les features
 X_test <- test %>% select(R2, R7, R8, R17, R22, R32)
@@ -189,6 +189,6 @@ submission <- data.frame(
 )
 
 # Sauvegarder
-write_csv(submission, "soumission_knn_acp.csv")
+write_csv(submission, "Data/soumission_knn_acp.csv")
 cat("Fichier généré avec succès !\n")
 ```

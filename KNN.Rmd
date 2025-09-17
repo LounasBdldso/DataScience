@@ -22,7 +22,7 @@ library(pROC)
 
 ```{r}
 
-apprentissage <- read_csv("farms_train.csv")
+apprentissage <- read_csv("Data/farms_train.csv")
 head(apprentissage)
 
 y <- apprentissage$DIFF
@@ -166,7 +166,7 @@ knn_pred_final <- knn(train = X_train_scaled,
 
 
 ```{r}
-test <- read_csv("farms_test.csv")
+test <- read_csv("Data/farms_test.csv")
 head(test)
 
 X_test <- test %>% select(R2, R7, R8, R17, R22, R32)
@@ -187,7 +187,7 @@ submission <- data.frame(
 # Vérifier le résultat
 head(submission)
 
-write_csv(submission, "soumission_knn.csv")
+write_csv(submission, "Data/soumission_knn.csv")
 
 ```
 
