@@ -89,6 +89,13 @@ Pour cela, trois approches de Machine Learning ont été développées et compar
 3. ⚖️ **Normalisation** (StandardScaler)  
 4. 🔍 Optimisation du **k** (recherche 1-20)  
 5. 🧮 Évaluation **Accuracy** et **AUC / ROC**
+<div style="display: flex; justify-content: space-between;">
+
+  <img src="Visualisation/1.png" alt="Accuracy KNN Classique" width="45%">
+  <img src="Visualisation/2.png" alt="ROC KNN Classique" width="45%">
+
+</div>
+
 
 ### **Approche 2 : KNN + ACP (Approche sophistiquée)**
 1. 📊 **Analyse en Composantes Principales** sur les 6 ratios
@@ -97,6 +104,12 @@ Pour cela, trois approches de Machine Learning ont été développées et compar
 4. 🔍 **Optimisation KNN** sur les composantes principales
 5. ⚖️ **Comparaison** des performances vs approche classique
 
+<div style="display: flex; justify-content: space-between;">
+
+  <img src="Visualisation/3.png" alt="Accuracy KNN Classique" width="45%">
+  <img src="Visualisation/4.png" alt="ROC KNN Classique" width="45%">
+
+</div>
 
 ---
 
@@ -143,8 +156,6 @@ Pour cela, trois approches de Machine Learning ont été développées et compar
 ## 🏆 Conclusion
 
 Ce projet démontre l'efficacité de l'**approche hybride ACP + KNN** pour la classification de données financières. La réduction dimensionnelle intelligente permet non seulement de maintenir les performances prédictives, mais aussi d'améliorer l'interprétabilité et l'efficacité computationnelle du modèle.
-
-**Key Takeaway :** *La variance expliquée n'est pas le seul critère - l'ACP peut améliorer les performances en filtrant le bruit, même avec une variance "modérée".*
 
 ---
 
