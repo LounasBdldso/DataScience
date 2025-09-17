@@ -1,5 +1,6 @@
 ---
 title: "Demi journée Data Science"
+author: "Lounas Chikhi"
 date: "2025-2026"
 ---
   
