@@ -1,0 +1,230 @@
+---
+title: "TP 1 - La main à la pâte avec les KNN"
+output:
+  html_document: default
+  pdf_document: default
+date: "2025-2026"
+---
+  
+### Chargement des librairies nécessaires
+
+```{r,echo=FALSE,,message=FALSE}
+library(readr)
+library(dplyr)
+library(ggplot2)
+library(class)
+library(caret)
+
+
+
+```
+
+
+###  A. Préparation des données et sélection des features
+
+
+```{r}
+
+apprentissage <- read_csv("farms_train.csv")
+head(apprentissage)
+
+y <- apprentissage$DIFF
+
+# Sélection seulement des features pertinentes
+
+X <- apprentissage %>% select(R2, R7, R8, R17, R22, R32)  # !!!!!!!!!!!!! a voir 
+
+
+```
+
+
+###   B.0 Partitionnement et préparation
+
+```{r}
+
+
+
+set.seed(42)
+train <- createDataPartition(y, p = 0.8, list = FALSE) # poiur faire le partitionnement des données en apprentisage et validation 
+
+X_train <- X[train, ]
+y_train <- y[train]
+
+X_val <- X[-train, ]
+y_val <- y[-train]
+
+
+
+```
+
+
+
+###   B.1 Normalisation des données
+
+```{r}
+
+preProcValues <- preProcess(X_train, method = c("center", "scale"))
+X_train_scaled <- predict(preProcValues, X_train)
+X_val_scaled   <- predict(preProcValues, X_val)
+```
+
+
+###   B.2 Premier test avec k=15
+
+```{r}
+
+k <- 15
+knn_pred <- knn(
+  train = X_train_scaled,  # toutes les lignes du jeu d'apprentissage
+  test  = X_val_scaled,    # chaque individu du jeu de validation
+  cl    = y_train,         # classes correspondantes des individus d'apprentissage
+  k     = k
+)
+```
+
+
+###   B.3 Évaluation des performances
+
+```{r}
+confusionMatrix(knn_pred, as.factor(y_val))
+
+```
+
+
+
+###   C.0 Optimisation du paramètre k
+
+
+```{r}
+
+
+# Tester plusieurs k
+k_values <- 1:20
+results <- data.frame(k = integer(), Accuracy = numeric())
+
+for(k in k_values){
+  knn_pred <- knn(train = X_train_scaled,
+                  test  = X_val_scaled,
+                  cl    = y_train,
+                  k     = k)
+  
+  acc <- sum(knn_pred == y_val) / length(y_val)
+  results <- rbind(results, data.frame(k = k, Accuracy = acc))
+}
+
+```
+
+
+
+###   C.1 Sélection du meilleur k et modèle final
+
+```{r}
+
+ggplot(results, aes(x = k, y = Accuracy)) +
+  geom_line(color = "blue") +
+  geom_point(color = "red") +
+  labs(title = "Accuracy vs k", x = "k", y = "Accuracy") +
+  theme_minimal()
+
+# Choisir le meilleur k
+best_k <- results$k[which.max(results$Accuracy)]
+cat("Le meilleur k est :", best_k, "avec une accuracy de :", max(results$Accuracy), "\n")
+
+# Appliquer KNN final avec le meilleur k
+knn_pred_final <- knn(train = X_train_scaled,
+                      test  = X_val_scaled,
+                      cl    = y_train,
+                      k     = best_k)
+
+
+```
+
+
+
+###   D.pipeline pour le testTest
+
+
+```{r}
+test <- read_csv("farms_test.csv")
+head(test)
+
+X_test <- test %>% select(R2, R7, R8, R17, R22, R32)
+
+X_test_scaled <- predict(preProcValues, X_test)
+knn_test_pred <- knn(
+  train = X_train_scaled,
+  test  = X_test_scaled,
+  cl    = y_train,
+  k     = best_k
+)
+
+submission <- data.frame(
+  ID = 1:nrow(test),
+  DIFF = knn_test_pred
+)
+
+# Vérifier le résultat
+head(submission)
+
+write_csv(submission, "soumission_knn.csv")
+
+```
+
+
+
+
+### Avec deux Composantes principales 
+
+```{r}
+# Sélection des features
+X_numeric <- apprentissage %>% select(R2, R7, R8, R17, R22, R32)
+
+# Normalisation
+X_scaled <- scale(X_numeric)
+
+# Variable cible
+y <- apprentissage$DIFF
+
+pca_result <- prcomp(X_scaled, center = TRUE, scale. = TRUE)
+
+# Extraire les 2 premières composantes
+X_pca <- data.frame(pca_result$x[, 1:2])
+
+
+library(caret)
+
+set.seed(42)
+train_index <- createDataPartition(y, p = 0.8, list = FALSE)
+
+X_train_pca <- X_pca[train_index, ]
+y_train <- y[train_index]
+
+X_val_pca <- X_pca[-train_index, ]
+y_val <- y[-train_index]
+
+
+k_values <- 1:20
+results <- data.frame(k = integer(), Accuracy = numeric())
+
+for(k in k_values){
+  knn_pred <- knn(train = X_train_pca,
+                  test  = X_val_pca,
+                  cl    = y_train,
+                  k     = k)
+  
+  acc <- sum(knn_pred == y_val) / length(y_val)
+  results <- rbind(results, data.frame(k = k, Accuracy = acc))
+}
+
+# Visualiser
+ggplot(results, aes(x = k, y = Accuracy)) +
+  geom_line(color = "blue") +
+  geom_point(color = "red") +
+  labs(title = "Accuracy vs k (ACP 2 composantes)", x = "k", y = "Accuracy") +
+  theme_minimal()
+
+# Choisir le meill
+
+
+```
+
