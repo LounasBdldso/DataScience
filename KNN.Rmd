@@ -1,8 +1,5 @@
 ---
-title: "TP 1 - La main à la pâte avec les KNN"
-output:
-  html_document: default
-  pdf_document: default
+title: "Demi journée Data Science"
 date: "2025-2026"
 ---
   
@@ -14,13 +11,13 @@ library(dplyr)
 library(ggplot2)
 library(class)
 library(caret)
-
+library(pROC)
 
 
 ```
 
 
-###  A. Préparation des données et sélection des features
+###  1. Préparation des données et sélection des features
 
 
 ```{r}
@@ -38,7 +35,7 @@ X <- apprentissage %>% select(R2, R7, R8, R17, R22, R32)  # !!!!!!!!!!!!! a voir
 ```
 
 
-###   B.0 Partitionnement et préparation
+###   2. Partitionnement et préparation
 
 ```{r}
 
@@ -59,7 +56,7 @@ y_val <- y[-train]
 
 
 
-###   B.1 Normalisation des données
+###   3. Normalisation des données
 
 ```{r}
 
@@ -69,7 +66,7 @@ X_val_scaled   <- predict(preProcValues, X_val)
 ```
 
 
-###   B.2 Premier test avec k=15
+###   4. Premier test avec k=15
 
 ```{r}
 
@@ -83,7 +80,7 @@ knn_pred <- knn(
 ```
 
 
-###   B.3 Évaluation des performances
+###   5. Évaluation des performances
 
 ```{r}
 confusionMatrix(knn_pred, as.factor(y_val))
@@ -92,7 +89,7 @@ confusionMatrix(knn_pred, as.factor(y_val))
 
 
 
-###   C.0 Optimisation du paramètre k
+###   6. Optimisation du paramètre k
 
 
 ```{r}
@@ -112,11 +109,35 @@ for(k in k_values){
   results <- rbind(results, data.frame(k = k, Accuracy = acc))
 }
 
+best_k <- results$k[which.max(results$Accuracy)]
+cat("Le meilleur k est :", best_k, "avec une accuracy de :", max(results$Accuracy), "\n")
+# KNN avec prob=TRUE pour extraire les probabilités
+knn_val_pred <- knn(
+  train = X_train_scaled,
+  test  = X_val_scaled,
+  cl    = y_train,
+  k     = best_k,
+  prob  = TRUE
+)
+
+# Extraire probabilités de la classe positive
+probabilities <- attr(knn_val_pred, "prob")
+probabilities <- ifelse(knn_val_pred == 1, probabilities, 1 - probabilities)
+
+# Courbe ROC
+roc_curve <- roc(y_val, probabilities)
+plot(roc_curve, main="Courbe ROC - KNN", col="blue", lwd=2)
+
+# AUC
+auc_value <- auc(roc_curve)
+cat("AUC :", auc_value, "\n")
+
+
 ```
 
 
 
-###   C.1 Sélection du meilleur k et modèle final
+###   7. Sélection du meilleur k et modèle final
 
 ```{r}
 
@@ -141,7 +162,7 @@ knn_pred_final <- knn(train = X_train_scaled,
 
 
 
-###   D.pipeline pour le testTest
+###   8. Prédiction sur le Dataset test
 
 
 ```{r}
