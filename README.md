@@ -22,8 +22,6 @@ Elles décrivent l’état financier d’exploitations agricoles à partir de pl
 - [🚀 Workflow](#-workflow)
 - [📈 Results](#-results)
 - [👥 Project Team](#-project-team)
-- [🔑 License](#-license)
-
 ---
 
 ## 📌 À propos du projet
@@ -97,8 +95,6 @@ Features utilisées : `R2, R7, R8, R17, R22, R32`
 | *(Autres membres)*  | 🔍 Revue de code, rapport, présentation |
 
 ---
-
-## 🔑 License
 
 Projet distribué sous la licence [MIT](https://opensource.org/licenses/MIT).  
 
